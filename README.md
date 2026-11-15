@@ -29,7 +29,7 @@ Happy-path 5 тестээр (`letterGradeA`, `letterGradeB`, `letterGradeC`, `gp
 
 ## B. Control Flow Graph ба Branch 100%
 
-`scholarship()`-ийн CFG-г гараар зурсан (`cfg.png`, эх файл `cfg.dot`). Шийдвэр бүрийн true/false ирмэг дээр түүнийг дайрах тестийн method нэрийг тэмдэглэсэн.
+`scholarship()`-ийн CFG-г гараар зурсан (`cfg.png`). Шийдвэр бүрийн true/false ирмэг дээр түүнийг дайрах тестийн method нэрийг тэмдэглэсэн.
 
 | Шийдвэр | Нөхцөл | true ирмэг дээрх тест | false ирмэг дээрх тест |
 | :--- | :--- | :--- | :--- |
