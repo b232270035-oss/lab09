@@ -89,6 +89,41 @@ class ScholarshipCalculatorTest {
     }
 
     @Test
+    void boundaryScoreSixtyIsD() {
+        assertEquals("D", calculator.letterGrade(60));
+    }
+
+    @Test
+    void boundaryScoreBelowSixtyIsF() {
+        assertEquals("F", calculator.letterGrade(59.99));
+    }
+
+    @Test
+    void boundaryScoreSixtyNinePointNineNineIsD() {
+        assertEquals("D", calculator.letterGrade(69.99));
+    }
+
+    @Test
+    void boundaryScoreZeroIsF() {
+        assertEquals("F", calculator.letterGrade(0));
+    }
+
+    @Test
+    void boundaryScoreOneHundredIsA() {
+        assertEquals("A", calculator.letterGrade(100));
+    }
+
+    @Test
+    void boundaryScoreEightyNinePointNineNineIsB() {
+        assertEquals("B", calculator.letterGrade(89.99));
+    }
+
+    @Test
+    void boundaryScoreNinetyIsA() {
+        assertEquals("A", calculator.letterGrade(90));
+    }
+
+    @Test
     void scholarshipRejectsNegativeGpa() {
         assertThrows(IllegalArgumentException.class, () -> calculator.scholarship(-0.1, 15, false));
     }
