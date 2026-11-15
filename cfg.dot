@@ -1,0 +1,36 @@
+digraph ScholarshipCFG {
+  graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.45", ranksep="0.55", fontname="DejaVu Sans", labelloc=t, label="scholarship(gpa, credits, hasViolation) — Control Flow Graph", fontsize=22];
+  node [fontname="DejaVu Sans", fontsize=12, style="rounded,filled", fillcolor="#eef4fb", color="#355070", penwidth=1.5, margin="0.16,0.10"];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#435466", penwidth=1.3, arrowsize=0.8];
+  start [shape=oval, label="Эхлэл"];
+  invalid [shape=diamond, style=filled, fillcolor="#fff4d6", label="gpa < 0 || gpa > 4\n|| credits < 0 ?"];
+  exception [shape=box, style="rounded,filled", fillcolor="#fde8e7", label="IllegalArgumentException"];
+  violation [shape=diamond, style=filled, fillcolor="#fff4d6", label="hasViolation?"];
+  zeroViolation [shape=box, label="0%"];
+  full [shape=diamond, style=filled, fillcolor="#fff4d6", label="gpa >= 3.8 &&\ncredits >= 15 ?"];
+  hundred [shape=box, label="100%"];
+  partial [shape=diamond, style=filled, fillcolor="#fff4d6", label="gpa >= 3.4 &&\ncredits >= 12 ?"];
+  seventy [shape=box, label="70%"];
+  fifty [shape=diamond, style=filled, fillcolor="#fff4d6", label="gpa >= 3.0 ?"];
+  fiftyAward [shape=box, label="50%"];
+  zero [shape=box, label="0%"];
+  end [shape=oval, label="Төгсгөл"];
+
+  start -> invalid;
+  invalid -> exception [label="true: scholarshipRejectsNegativeGpa\nscholarshipRejectsGpaAboveMaximum\nscholarshipRejectsNegativeCredits"];
+  invalid -> violation [label="false: scholarshipFullAward, scholarshipViolationGetsNoAward,\nscholarshipSeventyPercentAward, scholarshipFiftyPercentAward"];
+  exception -> end;
+  violation -> zeroViolation [label="true: scholarshipViolationGetsNoAward"];
+  violation -> full [label="false: scholarshipFullAward, scholarshipFullGpaWithInsufficientCreditsGetsNoFullAward,\nscholarshipSeventyPercentAward, scholarshipGpaQualifiesButCreditsDoNot,\nscholarshipFiftyPercentAward, scholarshipBelowMinimumGetsNoAward"];
+  zeroViolation -> end;
+  full -> hundred [label="true: scholarshipFullAward"];
+  full -> partial [label="false: scholarshipFullGpaWithInsufficientCreditsGetsNoFullAward,\nscholarshipSeventyPercentAward, scholarshipGpaQualifiesButCreditsDoNot,\nscholarshipFiftyPercentAward, scholarshipBelowMinimumGetsNoAward"];
+  hundred -> end;
+  partial -> seventy [label="true: scholarshipFullGpaWithInsufficientCreditsGetsNoFullAward,\nscholarshipSeventyPercentAward"];
+  partial -> fifty [label="false: scholarshipGpaQualifiesButCreditsDoNot,\nscholarshipFiftyPercentAward, scholarshipBelowMinimumGetsNoAward"];
+  seventy -> end;
+  fifty -> fiftyAward [label="true: scholarshipGpaQualifiesButCreditsDoNot,\nscholarshipFiftyPercentAward"];
+  fifty -> zero [label="false: scholarshipBelowMinimumGetsNoAward"];
+  fiftyAward -> end;
+  zero -> end;
+}
